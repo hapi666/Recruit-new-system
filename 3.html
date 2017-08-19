@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../../favicon.ico">
+
+	<title>USTIL实验室招新系统</title>
+
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+	<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+	<link href="signin.css" rel="stylesheet">
+
+	<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+	<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+	<style>
+		 #biaoti{
+			//background-color: black;
+			color: royalblue;
+			text-align:center;
+			padding:5px;
+		}
+		 #rukou{
+			 text-align: center;
+		 }
+		section {
+			width: 350px;
+			float:left;
+			padding:10px;
+		}
+	</style>
+</head>
+<style>
+	.divclass {
+		position: relative;
+		text-align: left;
+		left:150%;
+	}
+</style>
+<body>
+<section>
+	<div class="divclass">
+        <h2 id="biaoti">欢迎加入USTIL实验室</h2>
+	<form action="/login" method="post">
+		<h3 id="rukou" class="form-signin-heading">报名入口</h3>
+		<label for="inputname" class="sr-only">姓名</label>
+		<input type="text" name="username" id="inputname" class="form-control" placeholder="姓名" required autofocus>
+		<font size="4" face="微软雅黑" color="#6495ed">性别:</font>
+		<label><input name="sex" type="radio" value="男">男</label>
+		<label><input name="sex" type="radio" value="女">女</label>
+		<label for="inputpnonenumber" class="sr-only">电话</label>
+		<input type="text" name="phonenumber" id="inputpnonenumber" class="form-control" placeholder="电话" required>
+		<font size="4" face="微软雅黑" color="#6495ed">班级:</font><br />
+
+		<input id="class" name="class" type="radio" value="软件1701"><label for="class">软件1701</label><br>
+		<input id="class" name="class" type="radio" value="软件1702"><label for="class">软件1702</label><br>
+		<input id="class" name="class" type="radio" value="软件1703"><label for="class">软件1703</label><br>
+		<input id="class" name="class" type="radio" value="软件1704"><label for="class">软件1704</label><br>
+		<input id="class" name="class" type="radio" value="软件1705"><label for="class">软件1705</label><br>
+		<input id="class" name="class" type="radio" value="软件1706"><label for="class">软件1706</label><br>
+		<input id="class" name="class" type="radio" value="软工1701"><label for="class">软工1701</label><br>
+		<input id="class" name="class" type="radio" value="软工1702"><label for="class">软工1702</label><br>
+		<input id="class" name="class" type="radio" value="软工1703"><label for="class">软工1703</label><br>
+		<input id="class" name="class" type="radio" value="软工1704"><label for="class">软工1704</label><br>
+		<input id="class" name="class" type="radio" value="软工1705"><label for="class">软工1705</label><br>
+		<input id="class" name="class" type="radio" value="软工1706"><label for="class">软工1706</label><br>
+		<input id="class" name="class" type="radio" value="软工1707"><label for="class">软工1707</label><br>
+		<input id="class" name="class" type="radio" value="软工1708"><label for="class">软工1708</label><br>
+		<input id="class" name="class" type="radio" value="软工1709"><label for="class">软工1709</label><br>
+		<font size="4" face="微软雅黑" color="#6495ed">是否有编程基础</font><br />
+		<label><input name="code" type="radio" value="有">有</label>
+		<label><input name="code" type="radio" value="没有">没有</label>
+		<fieldset>
+			<legend>
+				<font size="4" face="微软雅黑" color="#6495ed">自我介绍</font>
+			</legend>
+			<textarea name="introduce" cols="50" rows="6"></textarea>
+		</fieldset>
+        <script>
+            function setSrcQuery(e, q) {
+                var src  = e.src;
+                var p = src.indexOf('?');
+                if (p >= 0) {
+                    src = src.substr(0, p);
+                }
+                e.src = src + "?" + q
+            }
+
+            function reload() {
+                setSrcQuery(document.getElementById('image'), "reload=" + (new Date()).getTime());
+                setSrcQuery(document.getElementById('audio'), (new Date()).getTime());
+                return false;
+            }
+        </script>
+            <p>请输入下方验证码：</p>
+            <p><img id=image src="/captcha/{{.CaptchaId}}.png" alt="Captcha image"></p>
+            <a href="#" onclick="reload()">看不清</a>
+            <audio id=audio controls style="display:none" src="/captcha/{{.CaptchaId}}.wav" preload=none>
+                You browser doesn't support audio.
+                <a href="/captcha/download/{{.CaptchaId}}.wav">Download file</a> to play it in the external player.
+            </audio>
+            <input type=hidden name=captchaId value="{{.CaptchaId}}"><br>
+            <input name=captchaSolution>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" value="remember-me"> Remember me
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">报名</button>
+	</form>
+	</div>
+</section>
+</body>
+</html>

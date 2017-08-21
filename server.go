@@ -40,7 +40,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "text/template; charset=utf-8")
 
-		db, err := sql.Open("mysql", "root:123456@tcp(119.29.21.123:3306)/test?charset=utf8")
+		db, err := sql.Open("mysql", "root:password@tcp(119.29.21.123:3306)/test?charset=utf8")
 		if err!=nil {
 			fmt.Println(err.Error())
 		}

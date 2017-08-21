@@ -16,7 +16,7 @@ import (
 func login(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method) //获取请求的方法
 	if r.Method == "GET" {
-		t,err:=template.ParseFiles("3.html")
+		t,err:=template.ParseFiles("show.html")
 		if err!=nil {
 			fmt.Println(err.Error())
 		}

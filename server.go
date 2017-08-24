@@ -9,14 +9,17 @@ import (
 	"log"
 	"io"
 	"net/http"
+	"github.com/tidwall/gjson"
+	"io/ioutil"
 )
+
 
 
 
 func login(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method) //获取请求的方法
 	if r.Method == "GET" {
-		t,err:=template.ParseFiles("show.html")
+		t,err:=template.ParseFiles("3.html")
 		if err!=nil {
 			fmt.Println(err.Error())
 		}
@@ -40,7 +43,27 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Type", "text/template; charset=utf-8")
 
-		db, err := sql.Open("mysql", "root:password@tcp(119.29.21.123:3306)/test?charset=utf8")
+		json,err := ioutil.ReadFile("config_example.json")
+
+		jsonStr := string(json)
+
+		if err!=nil {
+			fmt.Println(err)
+		}
+
+		pd:=gjson.Get(jsonStr,"password")
+
+		ppp:=pd.String()
+
+		ur:=gjson.Get(jsonStr,"user")
+
+		uuu:=ur.String()
+
+		dk:=gjson.Get(jsonStr,"port")
+
+		ppt:=dk.String()
+
+		db, err := sql.Open("mysql", uuu+":"+ppp+"@tcp(119.29.21.123:"+ppt+")/test?charset=utf8")
 		if err!=nil {
 			fmt.Println(err.Error())
 		}

@@ -1,15 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"io/ioutil"
-	"net/http"
 	"database/sql"
-	"html/template"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/tidwall/gjson"
+	"html/template"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
 var name string
@@ -42,23 +42,25 @@ func login(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method)
 	if r.Method == "POST" {
 		r.ParseForm()
-		Json,err:=ioutil.ReadFile("config_example.json")
+		Json, err := ioutil.ReadFile("config_example.json")
 		if err != nil {
 			log.Fatal(err)
 		}
-		JsonStr:=string(Json)
-		password:=gjson.Get(JsonStr,"password")
-		port:=gjson.Get(JsonStr,"port")
-		url:=gjson.Get(JsonStr,"url")
-		pd:=password.String()
-		pt:=port.String()
-		ul:=url.String()
-		db, err := sql.Open("mysql", "root:"+pd+"@tcp("+ul+":"+pt+")/test?charset=utf8")
+		JsonStr := string(Json)
+		password := gjson.Get(JsonStr, "password")
+		port := gjson.Get(JsonStr, "port")
+		url := gjson.Get(JsonStr, "url")
+		user := gjson.Get(Json, "user")
+		pd := password.String()
+		pt := port.String()
+		ul := url.String()
+		ur := user.String()
+		db, err := sql.Open("mysql", ur+pd+"@tcp("+ul+":"+pt+")/test?charset=utf8")
 		if err != nil {
 			log.Fatal(err)
 		}
 		//查找数据
-		find, err := db.Query("SELECT id FROM userinfo WHERE iclass=?", r.FormValue("iclass"))//学号
+		find, err := db.Query("SELECT id FROM userinfo WHERE iclass=?", r.FormValue("iclass")) //学号
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -73,7 +75,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Fatal(err)
 				w.Write([]byte("fail"))
-			}else {
+			} else {
 				w.Write([]byte("success"))
 			}
 			r.ParseForm()

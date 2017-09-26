@@ -55,7 +55,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		pt := port.String()
 		ul := url.String()
 		ur := user.String()
-		db, err := sql.Open("mysql", ur+pd+"@tcp("+ul+":"+pt+")/test?charset=utf8")
+		db, err := sql.Open("mysql", ur+":"+pd+"@tcp("+ul+":"+pt+")/test?charset=utf8")
 		if err != nil {
 			log.Fatal(err)
 		}

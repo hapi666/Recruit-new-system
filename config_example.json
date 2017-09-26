@@ -1,6 +1,6 @@
 {
 	"database" : "MySQL",
-	"user" : "root",
+	"user" : "grant",
 	"host" : "localhost",
 	"url" : "6.6.6.6.6.6",
 	"password" : "666666",

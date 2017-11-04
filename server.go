@@ -50,7 +50,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		password := gjson.Get(JsonStr, "password")
 		port := gjson.Get(JsonStr, "port")
 		url := gjson.Get(JsonStr, "url")
-		user := gjson.Get(Json, "user")
+		user := gjson.Get(JsonStr, "user")
 		pd := password.String()
 		pt := port.String()
 		ul := url.String()

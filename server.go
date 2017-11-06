@@ -3,13 +3,14 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
-	"github.com/tidwall/gjson"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
+	"github.com/tidwall/gjson"
 )
 
 var name string
@@ -21,7 +22,7 @@ type user struct {
 	Message string
 }
 
-func getlogin(w http.ResponseWriter, r *http.Request) {
+func Getlogin(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method)
 	if r.Method == "GET" {
 		t, err := template.ParseFiles("index.html")
@@ -102,7 +103,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	rtr := mux.NewRouter()
-	rtr.HandleFunc("/", getlogin)
+	rtr.HandleFunc("/", Getlogin)
 	http.HandleFunc("/login", login)
 	files := http.FileServer(http.Dir("Public"))
 	rtr.PathPrefix("/").Handler(http.StripPrefix("/", files))

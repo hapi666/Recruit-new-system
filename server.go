@@ -38,7 +38,7 @@ func Getlogin(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-func login(w http.ResponseWriter, r *http.Request) {
+func POSTlogin(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method)
 	if r.Method == "POST" {
 		r.ParseForm()
@@ -102,7 +102,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 func main() {
 	rtr := mux.NewRouter()
 	rtr.HandleFunc("/", Getlogin)
-	http.HandleFunc("/login", login)
+	http.HandleFunc("/login", POSTlogin)
 	files := http.FileServer(http.Dir("Public"))
 	rtr.PathPrefix("/").Handler(http.StripPrefix("/", files))
 	http.Handle("/", rtr)
